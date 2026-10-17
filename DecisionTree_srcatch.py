@@ -1,6 +1,5 @@
 import numpy as np
 
-
 class Node:
     """
     Một Node trong Cây Quyết Định dự đoán khách hàng rời bỏ ngân hàng (Bank Churn):
