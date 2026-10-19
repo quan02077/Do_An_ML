@@ -94,3 +94,6 @@ else:
     print("tuoi > 40 nen re phai")
     print("du doan nhan la: 1 (roi bo)")
 
+
+
+
