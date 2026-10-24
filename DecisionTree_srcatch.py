@@ -69,7 +69,7 @@ class DecisionTree:
                 thresholds = thresholds[::step]
 
             for thresh in thresholds:
-                # tao mang boolen de tach lam 2 ben
+                # tao mang boolean de tach lam 2 ben
                 left_idx = X[:, feat] <= thresh
                 right_idx = X[:, feat] > thresh
 
@@ -152,93 +152,3 @@ class DecisionTree:
             
         return np.array(predictions)
 
-    def print_tree(self, node=None, feature_names=None, indent=""):
-        # ve cay ra man hinh
-        if node is None:
-            node = self.root
-
-        if node.value is not None:
-            ket_qua = "ROI BO (1)" if node.value == 1 else "O LAI (0)"
-            print(indent + "--> [LA] Ket luan du doan: " + ket_qua)
-            return
-
-        if feature_names is not None:
-            ten_cot = feature_names[node.feature]
-        else:
-            ten_cot = f"Cot_{node.feature}"
-
-        print(indent + f"|--- [HOI] {ten_cot} <= {node.threshold:.2f}?")
-        print(indent + "|    (Dung -> Sang Trai):")
-        self.print_tree(node.left, feature_names, indent + "|    |   ")
-        print(indent + "|    (Sai -> Sang Phai):")
-        self.print_tree(node.right, feature_names, indent + "         ")
-
-    def explain_prediction(self, row, feature_names=None, node=None, step=1):
-        # in tung buoc re nhanh cho 1 khach hang
-        if node is None:
-            node = self.root
-
-        if node.value is not None:
-            ket_qua = "ROI BO (1)" if node.value == 1 else "O LAI (0)"
-            print(f"   -> Buoc {step}: Cham Nut La ==> KET LUAN: {ket_qua}")
-            return
-
-        if feature_names is not None:
-            ten_cot = feature_names[node.feature]
-        else:
-            ten_cot = f"Cot_{node.feature}"
-
-        gia_tri_khach = row[node.feature]
-        
-        if gia_tri_khach <= node.threshold:
-            print(f"   -> Buoc {step}: Kiem tra [{ten_cot} = {gia_tri_khach:.2f}] <= {node.threshold:.2f} ? ==> DUNG -> Re TRAI")
-            self.explain_prediction(row, feature_names, node.left, step + 1)
-        else:
-            print(f"   -> Buoc {step}: Kiem tra [{ten_cot} = {gia_tri_khach:.2f}] <= {node.threshold:.2f} ? ==> SAI -> Re PHAI")
-            self.explain_prediction(row, feature_names, node.right, step + 1)
-
-    def print_tree(self, node=None, feature_names=None, indent=""):
-        # ve cay ra man hinh
-        if node is None:
-            node = self.root
-
-        if node.value is not None:
-            ket_qua = "ROI BO (1)" if node.value == 1 else "O LAI (0)"
-            print(indent + "--> [LA] Ket luan du doan: " + ket_qua)
-            return
-
-        if feature_names is not None:
-            ten_cot = feature_names[node.feature]
-        else:
-            ten_cot = f"Cot_{node.feature}"
-
-        print(indent + f"|--- [HOI] {ten_cot} <= {node.threshold:.2f}?")
-        print(indent + "|    (Dung -> Sang Trai):")
-        self.print_tree(node.left, feature_names, indent + "|    |   ")
-        print(indent + "|    (Sai -> Sang Phai):")
-        self.print_tree(node.right, feature_names, indent + "         ")
-
-    def explain_prediction(self, row, feature_names=None, node=None, step=1):
-        # in tung buoc re nhanh cho 1 khach hang
-        if node is None:
-            node = self.root
-
-        if node.value is not None:
-            ket_qua = "ROI BO (1)" if node.value == 1 else "O LAI (0)"
-            print(f"   -> Buoc {step}: Cham Nut La ==> KET LUAN: {ket_qua}")
-            return
-
-        if feature_names is not None:
-            ten_cot = feature_names[node.feature]
-        else:
-            ten_cot = f"Cot_{node.feature}"
-
-        gia_tri_khach = row[node.feature]
-        
-        if gia_tri_khach <= node.threshold:
-            print(f"   -> Buoc {step}: Kiem tra [{ten_cot} = {gia_tri_khach:.2f}] <= {node.threshold:.2f} ? ==> DUNG -> Re TRAI")
-            self.explain_prediction(row, feature_names, node.left, step + 1)
-        else:
-            print(f"   -> Buoc {step}: Kiem tra [{ten_cot} = {gia_tri_khach:.2f}] <= {node.threshold:.2f} ? ==> SAI -> Re PHAI")
-            self.explain_prediction(row, feature_names, node.right, step + 1)
-        return np.array(predictions)

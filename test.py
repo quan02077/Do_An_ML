@@ -22,21 +22,16 @@ X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=0
 )
 
-# 1. Huấn luyện mô hình Decision Tree tự viết (From Scratch)
-print("--- Dang huan luyen DecisionTree (From Scratch) ---")
 dt_scratch = DecisionTree(max_depth=3)
 dt_scratch.fit(X_train, y_train)
 y_pred_scratch = dt_scratch.predict(X_test)
 print("Accuracy (Decision Tree from scratch):", accuracy_score(y_test, y_pred_scratch))
 
-# 2. Huấn luyện mô hình DecisionTreeClassifier (sklearn) để vẽ sơ đồ giống hệt ảnh mẫu
-print("\n--- Dang ve so do cay quyet dinh giong anh mau ---")
 clf_plot = DecisionTreeClassifier(max_depth=3, criterion="entropy", random_state=0)
 clf_plot.fit(X_train, y_train)
 print("Accuracy (sklearn):", accuracy_score(y_test, clf_plot.predict(X_test)))
 
 
-# Vẽ sơ đồ cây tương tự hình mẫu
 plt.figure(figsize=(22, 11))
 plot_tree(
     clf_plot,
