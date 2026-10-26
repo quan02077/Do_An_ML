@@ -3,8 +3,7 @@ import pandas as pd
 
 # 1. lay du lieu thuc te tu file csv
 df = pd.read_csv("Bank Customer Churn Prediction.csv")
-# lay 4 khach hang thuc te: 2 nguoi o lai (dong 3, 9) va 2 nguoi roi bo (dong 0, 2)
-mau = df.loc[[3, 9, 0, 2], ["age", "balance", "churn"]].copy()
+mau = df.loc[[3, 9, 0, 2, 10, 35, 46], ["age", "balance", "churn"]].copy()
 
 print("buoc 1: du lieu dau vao")
 print(mau.to_string())
@@ -109,12 +108,26 @@ gain = entropy_cha - entropy_split
 print(f"the so tinh gain: entropy_cha - e_split = {entropy_cha} - {entropy_split} = {gain}")
 
 
-# 7. tao ket luan cho nut la
-print("\nbuoc 7: ket luan du doan tai nut la")
-leaf_trai = 0
-leaf_phai = 1
-print("nut la ben trai: du doan =", leaf_trai, "(o lai)")
-print("nut la ben phai: du doan =", leaf_phai, "(roi bo)")
+# 7. tao ket luan cho nut la bang cach bo phieu da so
+print("\nbuoc 7: ket luan du doan tai nut la bang bo phieu da so")
+
+# nhanh trai: dem xem nhan nao nhieu hon
+dem_0_trai = np.sum(y_trai == 0)
+dem_1_trai = np.sum(y_trai == 1)
+if dem_0_trai >= dem_1_trai:
+    leaf_trai = 0
+else:
+    leaf_trai = 1
+print(f"nhanh trai: co {dem_0_trai} nguoi nhan 0 va {dem_1_trai} nguoi nhan 1 -> gia tri nut la = {leaf_trai} (o lai)")
+
+# nhanh phai: dem xem nhan nao nhieu hon
+dem_0_phai = np.sum(y_phai == 0)
+dem_1_phai = np.sum(y_phai == 1)
+if dem_1_phai >= dem_0_phai:
+    leaf_phai = 1
+else:
+    leaf_phai = 0
+print(f"nhanh phai: co {dem_0_phai} nguoi nhan 0 va {dem_1_phai} nguoi nhan 1 -> gia tri nut la = {leaf_phai} (roi bo)")
 
 
 # 8. du doan cho mot khach hang moi

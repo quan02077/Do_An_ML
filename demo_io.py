@@ -1,6 +1,9 @@
 import numpy as np
 import pandas as pd
 
+# tat che do in so mu e+01 e+05 cua numpy de nhin so dep va de hieu
+np.set_printoptions(suppress=True, precision=2)
+
 # ham tinh entropy
 def tinh_entropy(nhan):
     if len(nhan) == 0:
