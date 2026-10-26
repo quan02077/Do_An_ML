@@ -2,14 +2,12 @@ import numpy as np
 
 
 class Node:
-    # 1 node trong cay: nut giua thi co cot va nguong de chia, nut la thi co ket qua du doan
     def __init__(self, feature=None, threshold=None, value=None):
         self.feature = feature      # cot thuoc tinh dung de so sanh
         self.threshold = threshold  # nguong so sanh
         self.left = None            # nhanh con ben trai (thoa man <=)
         self.right = None           # nhanh con ben phai (lon hon >)
         self.value = value          # ket qua du doan (chi co o nut la: 0 hoac 1)
-
 
 class DecisionTree:
     def __init__(self, max_depth=5):
@@ -80,7 +78,7 @@ class DecisionTree:
                 # tinh entropy 2 nhanh con
                 e_left = self.entropy(y[left_idx])
                 e_right = self.entropy(y[right_idx])
-                
+                 
                 # tinh trong so 2 ben
                 weight_left = len(y[left_idx]) / num_samples
                 weight_right = len(y[right_idx]) / num_samples
