@@ -47,7 +47,6 @@ print("thu cat voi nguong =", nguong)
 
 left_idx = cot_tuoi <= nguong
 right_idx = cot_tuoi > nguong
-print(f"so sanh {cot_tuoi[0]} <= 40 (dung), {cot_tuoi[1]} <= 40 (dung), {cot_tuoi[2]} <= 40 (sai), {cot_tuoi[3]} <= 40 (sai)")
 print("mang boolean sang trai (tuoi <= 40):", left_idx)
 print("mang boolean sang phai (tuoi > 40):", right_idx)
 

@@ -6,12 +6,7 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score, confusion_matrix, recall_score, precision_score, f1_score
-from sklearn.linear_model import LogisticRegression
-from sklearn.naive_bayes import GaussianNB
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.neighbors import KNeighborsClassifier
-
+from sklearn.metrics import accuracy_score, confusion_matrix, recall_score, precision_score, f1_score, ConfusionMatrixDisplay
 
 dataset = pd.read_csv('Bank Customer Churn Prediction.csv')
 
@@ -40,7 +35,6 @@ for col in categorical_cols:
 X = dataset.drop(['customer_id', 'churn'], axis=1)
 y = dataset['churn']
 
-
 # print("Kich thuoc X:", X.shape)
 # print("Kich thuoc y:", y.shape)
 # print("Kieu du lieu cua X:", X.dtypes)
@@ -58,85 +52,29 @@ scaler = StandardScaler()
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
 
+#Ve Confusion Matrix
+def ve_confusion_matrix(y_true, y_pred, ten_mo_hinh):
+    cm = confusion_matrix(y_true, y_pred)
+    disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["Not Churn", "Churn"])
+    disp.plot(cmap="coolwarm")
+    plt.title(ten_mo_hinh)
+    plt.show()
+
 # Random Forest
-# model = RandomForestClassifier(random_state=0)
-# model.fit(X_train, y_train)
+model = RandomForestClassifier(random_state=0)
+model.fit(X_train, y_train)
 
-# y_pred = model.predict(X_test)
+y_pred = model.predict(X_test)
 
-# print("Accuracy:", accuracy_score(y_test, y_pred))
-# print("\nConfusion Matrix:")
-# print(confusion_matrix(y_test, y_pred))
-# print("\nRecall:")
-# print(recall_score(y_test, y_pred))
-# print("\nPrecision:")
-# print(precision_score(y_test, y_pred))
-# print("\nF1 Score:")
-# print(f1_score(y_test, y_pred))
+print("Random forest")
 
-# Logistic Regression
-# model = LogisticRegression(random_state=0)
-# model.fit(X_train, y_train)
+ve_confusion_matrix(y_test, y_pred, "Confusion Matrix - Random Forest")
 
-# y_pred = model.predict(X_test)
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print("\nRecall:")
+print(recall_score(y_test, y_pred))
+print("\nPrecision:")
+print(precision_score(y_test, y_pred))
+print("\nF1 Score:")
+print(f1_score(y_test, y_pred))
 
-# print("Accuracy:", accuracy_score(y_test, y_pred))
-# print("\nConfusion Matrix:")
-# print(confusion_matrix(y_test, y_pred))
-# print("\nRecall:")
-# print(recall_score(y_test, y_pred))
-# print("\nPrecision:")
-# print(precision_score(y_test, y_pred))
-# print("\nF1 Score:")
-# print(f1_score(y_test, y_pred))
-
-#Naive Bayes
-# model = GaussianNB()
-# model.fit(X_train, y_train)
-
-# y_pred = model.predict(X_test)
-
-# print("Accuracy:", accuracy_score(y_test, y_pred))
-# print("\nConfusion Matrix:")
-# print(confusion_matrix(y_test, y_pred))
-# print("\nRecall:")
-# print(recall_score(y_test, y_pred))
-# print("\nPrecision:")
-# print(precision_score(y_test, y_pred))
-# print("\nF1 Score:")
-# print(f1_score(y_test, y_pred))
-
-#Decision Tree
-# model = DecisionTreeClassifier(random_state=0)
-# model.fit(X_train, y_train)
-
-# y_pred = model.predict(X_test)
-
-# print("Accuracy:", accuracy_score(y_test, y_pred))
-# print("\nConfusion Matrix:")
-# print(confusion_matrix(y_test, y_pred))
-# print("\nRecall:")
-# print(recall_score(y_test, y_pred))
-# print("\nPrecision:")
-# print(precision_score(y_test, y_pred))
-# print("\nF1 Score:")
-# print(f1_score(y_test, y_pred))
-
-# KNN
-k = [3, 5, 7, 9, 11, 13, 15]
-for i in k:
-    model = KNeighborsClassifier(n_neighbors=i)
-    model.fit(X_train, y_train)
-
-    y_pred = model.predict(X_test)
-
-    print("Accuracy:", accuracy_score(y_test, y_pred))
-    print("\nConfusion Matrix:")
-    print(confusion_matrix(y_test, y_pred))
-    print("\nRecall:")
-    print(recall_score(y_test, y_pred))
-    print("\nPrecision:")
-    print(precision_score(y_test, y_pred))
-    print("\nF1 Score:")
-    print(f1_score(y_test, y_pred))
-    print("\n")
