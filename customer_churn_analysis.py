@@ -78,3 +78,10 @@ print(precision_score(y_test, y_pred))
 print("\nF1 Score:")
 print(f1_score(y_test, y_pred))
 
+#Logistic Regression
+
+#Naive Bayes
+
+#Decision Tree
+
+#KNN
